@@ -2,11 +2,14 @@ from typing import List
 from level import Level
 from vehicle import Vehicle
 
+class ParkingLotException(Exception):
+  pass
+
 class ParkingLot:
   _instance = None
   def __init__(self):
     if ParkingLot._instance:
-      raise Exception("This Class is a Singleton")
+      raise ParkingLotException("ParkingLot already initialized")
     else:
       ParkingLot._instance = self
       self.levels : List[Level] = []
@@ -37,7 +40,7 @@ class ParkingLot:
     return False
 
   def display_availability(self) -> None:
-    print(f"Level Wise Availability Diplay")
+    print("Level Wise Availability Display")
     for level in self.levels:
       print(f"Availability for Level: {level.floor}")
       level.display_availability()
